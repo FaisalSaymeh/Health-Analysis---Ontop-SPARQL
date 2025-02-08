@@ -1,0 +1,185 @@
+1. Retrieve all Patients:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?patient
+WHERE {
+  ?patient a :Patient .
+}
+LIMIT 10
+
+
+2. Encounters with Payer Information:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?encounter ?payer
+WHERE {
+  ?encounter a :Encounter ;
+             :hasPayerRelation ?payer .
+}
+LIMIT 10
+
+
+3. Covid Test
+ 
+PREFIX : <http://example.org/ontology#>
+SELECT ?covidTestID 
+WHERE {
+  ?covidTestID a :COVID19TestToTreat .
+  OPTIONAL { ?covidTestID :hasProviderName ?providerName . }
+}
+LIMIT 10
+
+
+4. Patients by City:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?patient ?city
+WHERE {
+  ?patient a :Patient ;
+           :hasCity ?city .
+}
+LIMIT 10
+
+
+5. Patients and their procedures:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?patientID ?procedureID ?description
+WHERE {
+  ?patientID a :Patient .
+  ?encounterID :hasPatientRelation ?patientID .
+  ?procedureID :hasEncounterRelation ?encounterID .
+  OPTIONAL { ?procedureID :hasDescription ?description . }
+}
+LIMIT 10
+
+
+6. Daily Town
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?dailyTownID
+WHERE {
+  ?dailyTownID a :DailyTownCOVID19 .
+  OPTIONAL { ?dailyTownID :hasTown ?townName . }
+
+}
+LIMIT 10
+
+
+7. Patients with Multiple Encounters: 
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?patient (COUNT(?encounter) AS ?encounterCount)
+WHERE {
+  ?encounter a :Encounter ;
+              :hasPatientRelation ?patient .
+}
+GROUP BY ?patient
+HAVING (COUNT(?encounter) > 1)
+LIMIT 10
+
+
+8. Retrieve Patient Information:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?patientID ?age ?city
+WHERE {
+  ?patientID a :Patient .
+  ?patientID :hasAge ?age .
+  ?patientID :hasCity ?city .
+}
+LIMIT 10
+
+
+9.  Link Patients and Encounters:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?patientID ?encounterID
+WHERE {
+  ?encounterID a :Encounter .
+  ?encounterID :hasPatientRelation ?patientID .
+}
+LIMIT 10
+
+
+10. Patient Demographics:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?age (COUNT(?patientID) AS ?count) ?city
+WHERE {
+  ?patientID a :Patient .
+  ?patientID :hasAge ?age .
+  ?patientID :hasCity ?city .
+}
+GROUP BY ?age ?city
+LIMIT 10
+
+
+11. List of Payers and their related encounters:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?payerID ?encounterID ?encounterDate
+WHERE {
+  ?payerID a :Payer .
+  ?encounterID :hasPayerRelation ?payerID .
+  OPTIONAL { ?encounterID :hasStartDate ?encounterDate . }
+}
+LIMIT 10
+
+
+12. Encounter details including payer and procedure information:
+
+PREFIX : <http://example.org/ontology#>
+SELECT ?encounterID ?startDate ?stopDate ?procedureDescription
+WHERE {
+  ?encounterID a :Encounter .
+  ?encounterID :hasPayerRelation ?payerID .
+  ?procedureID :hasEncounterRelation ?encounterID .
+  OPTIONAL { ?encounterID :hasStartDate ?startDate . }
+  OPTIONAL { ?encounterID :hasStopDate ?stopDate . }
+  OPTIONAL { ?procedureID :hasDescription ?procedureDescription . }
+}
+LIMIT 10
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

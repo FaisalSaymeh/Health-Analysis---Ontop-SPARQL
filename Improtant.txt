@@ -1,0 +1,29 @@
+Data Source:
+
+https://mavenanalytics.io/data-playground  (Hospital Patient Records)
+
+https://healthdata.gov/National/COVID-19-Test-to-Treat-Locations-Map/y2ki-fzzb
+
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/XSTSXY
+
+
+Download Ontop:
+
+https://ontop-vkg.org/tutorial/endpoint/endpoint-cli.html
+
+
+How to Run Ontop:
+
+1. Open Command Prompt 
+
+2. cd "Path of Ontop"
+
+3. Ontop
+
+4. ontop endpoint ^
+    --ontology=full_data.ttl ^
+    --mapping=health_data.obda ^
+    --properties=basic.properties ^
+    --cors-allowed-origins=http://yasgui.org 
+
+5. http://localhost:8080/
