@@ -27,3 +27,6 @@ How to Run Ontop:
     --cors-allowed-origins=http://yasgui.org 
 
 5. http://localhost:8080/
+
+6. To Run The Web App:
+The ontop must be run because it is connected with it
